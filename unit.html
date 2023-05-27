@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Unit Converter</title>
+  <link rel="stylesheet" href="unit.css">
+  <script>
+    // JavaScript unit converter function
+    function convertLength(value, fromUnit, toUnit) {
+      // Convert everything to meters as a base unit
+      const conversion = {
+        meters: 1,
+        feet: 0.3048,
+        inches: 0.0254
+      };
+
+      // Convert from the source unit to meters
+      const meters = value * conversion[fromUnit];
+
+      // Convert from meters to the target unit
+      const result = meters / conversion[toUnit];
+
+      return result;
+    }
+
+    // Function to handle unit conversion on form submission
+    function handleConversion() {
+      // Get form input values
+      const value = parseFloat(document.getElementById("value").value);
+      const fromUnit = document.getElementById("fromUnit").value;
+      const toUnit = document.getElementById("toUnit").value;
+
+      // Perform unit conversion
+      const convertedValue = convertLength(value, fromUnit, toUnit);
+
+      // Update the result element
+      document.getElementById("result").textContent = `${value} ${fromUnit} is equal to ${convertedValue} ${toUnit}`;
+
+      // Prevent form submission from refreshing the page
+      return false;
+    }
+  </script>
+</head>
+<body>
+  <h1>Unit Converter</h1>
+  <form onsubmit="return handleConversion()">
+    <label for="value">Value:</label>
+    <input type="number" id="value" required>
+
+    <label for="fromUnit">From:</label>
+    <select id="fromUnit">
+      <option value="meters">Meters</option>
+      <option value="feet">Feet</option>
+      <option value="inches">Inches</option>
+    </select>
+
+    <label for="toUnit">To:</label>
+    <select id="toUnit">
+      <option value="meters">Meters</option>
+      <option value="feet">Feet</option>
+      <option value="inches">Inches</option>
+    </select>
+
+    <button type="submit">Convert</button>
+  </form>
+
+  <p id="result"></p>
+</body>
+</html>
+
